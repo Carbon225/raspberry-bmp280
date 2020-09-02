@@ -7,6 +7,7 @@
 #include <sys/ioctl.h>
 #include <linux/i2c-dev.h>
 #include <cstring>
+#include <cmath>
 
 #define MAX_BMP_NUM (256)
 
@@ -99,6 +100,12 @@ double BMP280::getPressure() const
 double BMP280::getTemperature() const
 {
     return _temp;
+}
+
+double BMP280::getAltitude(double p0) const
+{
+    double R = pow(p0 / _press, 1. / 5.257);
+    return (R - 1.) * (_temp + 273.15) * 2000. / 13.;
 }
 
 void BMP280::delay_ms(uint32_t period_ms)

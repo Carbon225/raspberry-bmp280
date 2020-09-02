@@ -2,15 +2,7 @@
 #include <cmath>
 #include "raspberry_bmp280.h"
 
-using namespace std;
-
 static double p0 = -1;
-
-static double getAlt(double p, double t)
-{
-    double R = pow(p0 / p, 1. / 5.257);
-    return (R - 1.) * (t + 273.15) * 2000. / 13.;
-}
 
 int main()
 {
@@ -46,7 +38,7 @@ int main()
         }
         else if (i > 100)
         {
-            printf("%d: P = %.1f Pa\tT = %.1f °C\tAlt = %.2f m\n\r", i, pressure, temp, getAlt(pressure, temp));
+            printf("%d: P = %.1f Pa\tT = %.1f °C\tAlt = %.2f m\n\r", i, pressure, temp, bmp.getAltitude(p0));
         }
 
         i++;

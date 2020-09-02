@@ -28,6 +28,7 @@ public:
     int8_t read();
     double getPressure() const;
     double getTemperature() const;
+    double getAltitude(double p0) const;
 
 private:
     static BMP280 *_sensors[];
